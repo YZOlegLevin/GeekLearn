@@ -6,9 +6,9 @@ public class Main {
     static float[] arr = new float[size];
 
     public static void main(String[] args) {
-        ordinaryMethod();
+         ordinaryMethod();
         System.out.println();
-        threadMethod();
+         threadMethod();
     }
 
     public static void ordinaryMethod() {
@@ -20,14 +20,13 @@ public class Main {
         for (int i = 0; i < arr.length; i++) {
             arr[i] = (float) (arr[i] * Math.sin(0.2f + i / 5) * Math.cos(0.2f + i / 5) * Math.cos(0.4f + i / 2));
         }
-        System.out.println("Медод завершил работу.\nBремя выполнения : " + (System.currentTimeMillis()-a) + " милисекунд");
+        System.out.println("Медод завершил работу.\nBремя выполнения : " + (System.currentTimeMillis() - a) + " милисекунд");
 
     }
 
     public static void threadMethod() {
         System.out.println("Работает многопоточный метод");
-        float[] arr = new float[size];
-        for (int i = 0; i < h; i++) {
+        for (int i = 0; i < arr.length; i++) {
             arr[i] = 1;
         }
         long a = System.currentTimeMillis();
@@ -38,7 +37,7 @@ public class Main {
             for (int i = 0; i < first.length; i++) {
                 first[i] = (float) (first[i] * Math.sin(0.2f + i / 5) * Math.cos(0.2f + i / 5) * Math.cos(0.4f + i / 2));
             }
-            System.arraycopy(first, 0, arr, 0, first.length);
+            System.arraycopy(first, 0, arr, 0, h);
             System.out.println("Первый поток завершил работу");
         });
         Thread t2 = new Thread(() -> {
@@ -48,7 +47,7 @@ public class Main {
             for (int i = 0; i < second.length; i++) {
                 second[i] = (float) (second[i] * Math.sin(0.2f + i / 5) * Math.cos(0.2f + i / 5) * Math.cos(0.4f + i / 2));
             }
-            System.arraycopy(second, 0, arr, h, second.length);
+            System.arraycopy(second, 0, arr, h, h);
             System.out.println("Второй поток завершил работу");
 
         });
@@ -56,7 +55,7 @@ public class Main {
             try {
                 t1.join();
                 t2.join();
-                System.out.println("Медод завершил работу.\nBремя выполнения : " + (System.currentTimeMillis()-a) + " милисекунд");
+                System.out.println("Медод завершил работу.\nBремя выполнения : " + (System.currentTimeMillis() - a) + " милисекунд");
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -67,7 +66,10 @@ public class Main {
         t2.start();
 
     }
+
+
 }
+
 
 
 
